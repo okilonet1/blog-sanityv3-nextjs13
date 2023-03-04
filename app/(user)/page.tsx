@@ -1,5 +1,9 @@
 import { previewData } from "next/headers";
 import { groq } from "next-sanity";
+import { sanityClient } from "@/lib/sanity.client";
+import { PreviewSuspense } from "next-sanity/preview";
+import PreviewBlogList from "@/components/PreviewBlogList";
+import BlogList from "@/components/BlogList";
 
 const query = groq`
   *[_type == "post"] {
@@ -9,17 +13,24 @@ const query = groq`
   } | order(_createdAt desc)
 `;
 
-export default function Home() {
+export default async function Home() {
   if (previewData()) {
     return (
-      <div>
-        <h1>Preview Mode</h1>
-      </div>
+      <PreviewSuspense
+        fallback={
+          <div role="status">
+            <p className="text-center text-lg animate-pulse text-[#f7ab0q]">
+              Loading...
+            </p>
+          </div>
+        }
+      >
+        <PreviewBlogList query={query} />
+      </PreviewSuspense>
     );
   }
-  return (
-    <div>
-      <h1>Not in Preview Mode</h1>
-    </div>
-  );
+
+  const posts = await sanityClient.fetch(query);
+
+  return <BlogList posts={posts} />;
 }
