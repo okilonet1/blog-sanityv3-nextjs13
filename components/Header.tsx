@@ -14,7 +14,7 @@ function Header() {
             alt="logo"
           />
         </Link>
-        <h1>KACHI's BLOG</h1>
+        <h1>KACHI&apos;s BLOG</h1>
       </div>
       <div>
         <Link
