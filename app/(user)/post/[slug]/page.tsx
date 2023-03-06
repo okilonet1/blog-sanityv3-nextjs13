@@ -2,7 +2,8 @@ import { sanityClient } from "@/lib/sanity.client";
 import urlFor from "@/lib/urlFor";
 import { groq } from "next-sanity";
 import Image from "next/image";
-import { PortableText } from "@portabletext/react";
+// import { PortableText } from "@portabletext/react";
+import PortableText from "react-portable-text";
 import { RichTextComponents } from "@/components/RichTextComponents";
 
 type Props = {
@@ -108,7 +109,7 @@ async function Post({ params: { slug } }: Props) {
         </div>
       </section>
 
-      <PortableText value={post.body} serializers={RichTextComponents} />
+      <PortableText content={post.body} serializers={RichTextComponents} />
     </article>
   );
 }
