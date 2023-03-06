@@ -6,7 +6,7 @@ export const RichTextComponents = {
   types: {
     image: ({ value }: any) => {
       return (
-        <div className="relative w-full h-96">
+        <div className="relative w-full h-96 m-10 mx-auto">
           <Image
             className="object-contain"
             src={urlFor(value).url()}
